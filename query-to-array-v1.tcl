@@ -24,7 +24,7 @@
 #################################################
 
 when RULE_INIT {
-  set ::DEBUG 3
+  set ::DEBUG 0
 }
 
 when HTTP_REQUEST {
