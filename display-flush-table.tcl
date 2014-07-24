@@ -1,10 +1,6 @@
-#################################################
 #
-# Display or flush table contents
-#  (c) A10 Networks -- MP
-#   v1 20131213
-#
-#################################################
+# Copyright 2014, Mischa Peters <mpeters AT a10networks DOT com>, A10 Networks.
+# Version 1.0 - 20131213
 #
 # aFleX script to display and flush contents
 # of the requested table.
@@ -14,11 +10,7 @@
 #
 # For eample:
 #  http://192.168.1.80/display:usertable
-# 
-# Questions & comments welcome.
-#  mpeters AT a10networks DOT com
 #
-#################################################
 
 when HTTP_REQUEST {
  set ACTION [getfield [HTTP::uri] ":" 1]

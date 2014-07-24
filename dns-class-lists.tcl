@@ -1,10 +1,6 @@
-#################################################
 #
-# Drop certain DNS queries w/ class-list
-#  (c) A10 Networks -- MP
-#   v1 20120716
-#
-#################################################
+# Copyright 2014, Mischa Peters <mpeters AT a10networks DOT com>, A10 Networks.
+# Version 1.0 - 20120716
 #
 # aFleX script to block specific DNS names.
 #
@@ -12,17 +8,13 @@
 # "cl-dns-list" (default) of type "string" and has
 # to contain the following data:
 # str <.domain.tld>
-# 
+#
 # For example:
 # str .madrid.org
 # str .madrid.com
 #
 # Scalability of this aFleX is unknown.
 #
-# Questions & comments welcome.
-#  mpeters AT a10networks DOT com
-#
-#################################################
 
 when RULE_INIT {
   set ::DEBUG 0

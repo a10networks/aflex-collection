@@ -1,26 +1,19 @@
-#################################################
 #
-# Header Enrichment for Traffic Steering
-#  (c) A10 Networks -- MP
-#   v1 20130924
-#
-#################################################
+# Copyright 2014, Mischa Peters <mpeters AT a10networks DOT com>, A10 Networks.
+# Version 1.0 - 20130924
 #
 # aFleX script to provide Header Enrichment for
-# the purpose of policy based Traffic Steering. 
-# 
+# the purpose of policy based Traffic Steering.
+#
 # This comes in 2 parts.
 # 1) Script that is bound to a RADIUS VPORT.
 # 2) Script that is bound to a HTTP VPORT.
 #
 # Scalability of this aFleX is unknown.
 #
-# Questions & comments welcome.
-#  mpeters AT a10networks DOT com
+
 #
-#################################################
-#
-# VPORT: RADIUS
+# Virtual Server Port: RADIUS
 #
 when RULE_INIT {
   set ::DEBUG 0
@@ -28,7 +21,7 @@ when RULE_INIT {
 
 when CLIENT_DATA {
   binary scan [RADIUS::avp 40] H* avp40
- 
+
   if { ($::DEBUG == 1) } { log "RADIUS == User-Name=[RADIUS::avp 1], User-Password=[RADIUS::avp 2], Framed-IP-Address=[RADIUS::avp 8], Filter-Id=[RADIUS::avp 11], Calling-Station-Id=[RADIUS::avp 31], Acct-Status-Type=$avp40" }
 
   if { $avp40 == 1 } {
@@ -47,7 +40,7 @@ when CLIENT_DATA {
 
 
 #
-# VPORT: HTTP
+# Virtual Server Port: HTTP
 #
 when RULE_INIT {
   set ::DEBUG 0

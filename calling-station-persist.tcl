@@ -1,23 +1,15 @@
-#################################################
 #
-# Calling-Station-Id Based Persistency
-#  (c) A10 Networks -- MP
-#   v1 20131212
-#
-#################################################
+# Copyright 2014, Mischa Peters <mpeters AT a10networks DOT com>, A10 Networks.
+# Version 1.0 - 20131212
 #
 # aFleX script to provide persistence based on
-# the users Calling-Stattion-Id 
+# the users Calling-Stattion-Id
 #
 # Specific use case is Wireless Lan Controller
 # Radius Authentication load balancing
 #
 # Scalability of this aFleX is unknown.
 #
-# Questions & comments welcome.
-#  mpeters AT a10networks DOT com
-#
-#################################################
 
 when RULE_INIT {
   set ::DEBUG 0

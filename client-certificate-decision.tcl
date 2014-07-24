@@ -1,20 +1,12 @@
-#################################################
 #
-# Decisions based on a Client Certificate
-#  (c) A10 Networks -- MP
-#   v1 20131005
-#
-#################################################
+# Copyright 2014, Mischa Peters <mpeters AT a10networks DOT com>, A10 Networks.
+# Version 1.0 - 20131005
 #
 # aFleX script to make decisions based on the CA
 # and Common Name of a Client Certificate.
 #
 # Scalability of this aFleX is unknown.
 #
-# Questions & comments welcome.
-#  mpeters AT a10networks DOT com
-#
-#################################################
 
 when RULE_INIT {
   set ::DEBUG 0
