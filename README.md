@@ -1,3 +1,1 @@
-aflex-collection
-================
- A10 Networks - aFleX Scripts
+# A10 Networks aFleX Collection
