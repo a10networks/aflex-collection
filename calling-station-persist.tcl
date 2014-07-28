@@ -12,10 +12,10 @@
 #
 
 when RULE_INIT {
-  set ::DEBUG 0
+    set ::DEBUG 0
 }
 
 when CLIENT_DATA {
-  if { ($::DEBUG == 1) } { log "User-Name=[RADIUS::avp 1], Calling-Station-Id=[RADIUS::avp 31]" }
-  persist uie [RADIUS::avp 31]
+    if { ($::DEBUG == 1) } { log "User-Name=[RADIUS::avp 1], Calling-Station-Id=[RADIUS::avp 31]" }
+    persist uie [RADIUS::avp 31]
 }

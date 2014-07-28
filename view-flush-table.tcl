@@ -1,15 +1,11 @@
 #
 # Copyright 2014, Mischa Peters <mpeters AT a10networks DOT com>, A10 Networks.
-# Version 1.0 - 20131213
+# Version 1.0 - 20140312
 #
-# aFleX script to display and flush contents
-# of the requested table.
+# aFleX script to view contents of a table with
+# the option to flush the complete table.
 #
-# To display: http://<VIP>/status:<table_name>
-# To flush: http://<VIP>/flush:<table_name>
-#
-# For eample:
-#  http://192.168.1.80/display:usertable
+# Scalability of this aFleX is unknown.
 #
 
 when HTTP_REQUEST {
@@ -20,9 +16,10 @@ when HTTP_REQUEST {
         table delete $TABLE -all
         HTTP::respond 200 content "Table $TABLE deleted... <a href=\"/status:$TABLE\">Back to STATUS</a>" Content-Type "text/html"
     } elseif { $ACTION eq "/status" } {
-        set response "<html><head><title>Contents of Table: $TABLE</title></head>"
+        set response "<html><head><meta http-equiv=\"refresh\" content=\"60\"><title>Contents of Table: $TABLE</title></head>"
         append response "<body><center><h1>Contents of Table: $TABLE</h1><table border=\"1\" cellpadding=\"5\" cellspacing=\"0\">"
         append response "<tr><th>Key</th><th>Value</th></tr>"
+        log "TABLE: [table keys $TABLE]"
         set i 0
         foreach tr [table keys $TABLE] {
             incr i

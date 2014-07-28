@@ -17,17 +17,17 @@
 #
 
 when RULE_INIT {
-  set ::DEBUG 0
-  set ::CLASSLIST "cl-dns-list"
+    set ::DEBUG 0
+    set ::CLASSLIST "cl-dns-list"
 }
 
 when DNS_REQUEST {
-  if { !([DNS::question name] equals ".") } {
-    set fqdn .[DNS::question name]
-    if { $::DEBUG == 1 } { log "fqdn: $fqdn" }
-  }
-  if { [CLASS::match $fqdn ends_with $::CLASSLIST] } {
-    if { $::DEBUG == 1 } { log "Dropped: [DNS::question name] from [IP::client_addr]" }
-    drop
-  }
+    if { !([DNS::question name] equals ".") } {
+        set fqdn .[DNS::question name]
+        if { $::DEBUG == 1 } { log "fqdn: $fqdn" }
+    }
+    if { [CLASS::match $fqdn ends_with $::CLASSLIST] } {
+        if { $::DEBUG == 1 } { log "Dropped: [DNS::question name] from [IP::client_addr]" }
+        drop
+    }
 }

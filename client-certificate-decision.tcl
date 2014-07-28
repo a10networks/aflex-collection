@@ -9,25 +9,25 @@
 #
 
 when RULE_INIT {
-  set ::DEBUG 0
+    set ::DEBUG 0
 }
 
 when CLIENTSSL_CLIENTCERT {
-  set CCcert [SSL::cert 0]
-  set CCsubject [X509::subject $CCcert]
-  if { $::DEBUG == 1 } { log "Client SSL Cert Subject: $CCsubject -- Complete Cert: $CCcert" }
+    set CCcert [SSL::cert 0]
+    set CCsubject [X509::subject $CCcert]
+    if { $::DEBUG == 1 } { log "Client SSL Cert Subject: $CCsubject -- Complete Cert: $CCcert" }
 }
 
 when HTTP_REQUEST {
-  if { [HTTP::uri] matches {/api/[0-9]*} } {
-    if { $CCsubject matches {*<CA_SIGNER>*} } {
-      do something...
-      if { $CCsubject matches {*<CN>*} } {
-        do something...
-      }
-    } else {
-     if { $::DEBUG == 1 } { log "SSL Connection is dropped" }
-      drop
+    if { [HTTP::uri] matches {/api/[0-9]*} } {
+        if { $CCsubject matches {*<CA_SIGNER>*} } {
+            do something...
+            if { $CCsubject matches {*<CN>*} } {
+                do something...
+            }
+        } else {
+            if { $::DEBUG == 1 } { log "SSL Connection is dropped" }
+            drop
+        }
     }
-  }
 }
