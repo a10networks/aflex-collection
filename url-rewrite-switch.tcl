@@ -7,10 +7,7 @@
 #
 # Scalability of this aFleX is unknown.
 #
-# Questions & comments welcome.
-#  mpeters AT a10networks DOT com
 #
-#################################################
 
 when RULE_INIT {
     set ::DEBUG 0
