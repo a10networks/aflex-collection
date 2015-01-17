@@ -48,21 +48,20 @@ when HTTP_REQUEST {
         if { $::DEBUG == 1 } { log "Class-list match AUTHENTICATE: $AUTHENTICATE URI: $URI" }
     }
     if { $AUTHENTICATE == 1 } {
+        set ACCESS 0
         if { [HTTP::header exists "Authorization"] } {
-            set encoded_header [HTTP::header "Authorization"]
-            regexp -nocase {Basic (.*)} $encoded_header tmpmatch encoded_string
-            set decoded_string [b64decode $encoded_string]
-            regexp -nocase {(.*):(.*)} $decoded_string tmpmatch auth_user auth_passwd
+            set encoded_string [findstr [HTTP::header value "Authorization"] "Basic " 6]
+            set basic_values [split [b64decode $encoded_string] ":"]
+            set auth_user [lindex $basic_values 0]
+            binary scan [sha1 [lindex $basic_values 1]] H* auth_passwd
             if { [CLASS::match $auth_user equals $::PASSWORDS] } {
-                set stored_passwd [CLASS::match $auth_user equals $::PASSWORDS value]
-                set auth_passwd_sha1 [sha1 $auth_passwd_clear]
-                if { $auth_passwd ne $stored_passwd } {
-                    HTTP::respond 401 WWW-Authenticate "Basic realm=\"$::REALM\""
+                if { [CLASS::match $auth_user equals $::PASSWORDS value] eq $auth_passwd } {
+                    set ACCESS 1
+                    HTTP::header remove "Authorization"
                 }
-            } else {
-                HTTP::respond 401 WWW-Authenticate "Basic realm=\"$::REALM\""
             }
-        } else {
+        }
+        if { $ACCESS == 0 } {
             HTTP::respond 401 WWW-Authenticate "Basic realm=\"$::REALM\""
         }
     }
