@@ -1,0 +1,16 @@
+## declaration:
+## CIP -> Client-IP
+## NIP -> NAT-IP
+
+when RULE_INIT {
+  set DEBUG 0
+}
+when CLIENT_ACCEPTED {
+  if { [IP::addr [IP::client_addr] equals 128.178.199.0/24] } {
+    if { $::DEBUG > 1 } { log "aFlex has been fired" }
+    set CIP [IP::client_addr]
+    regsub "10.0.1." $CIP "10.0.2." NIP
+    snat $NIP
+    if { $::DEBUG > 1 } { log "SNAT from $CIP to $NIP" }  
+  } 
+}
