@@ -1,3 +1,13 @@
+#
+# Copyright 2016, Holger Kohn <holger(at)kohn-nf.de>, A10 Networks.
+# Version 1.2 - 20160424
+#
+# aFleX script to SNAT every single client IP to a single NAT IP
+#
+# ::DEBUG can be set to 1
+#
+# Scalability of this aFleX is unknown.
+#
 ## declaration:
 ## CIP -> Client-IP
 ## NIP -> NAT-IP
