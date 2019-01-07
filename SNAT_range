@@ -1,0 +1,26 @@
+#
+# Copyright 2016, Holger Kohn <holger(at)kohn-nf.de>, A10 Networks.
+# Version 1.2 - 20160424
+#
+# aFleX script to SNAT every single client IP to a single NAT IP
+#
+# ::DEBUG can be set to 1
+#
+# Scalability of this aFleX is unknown.
+#
+## declaration:
+## CIP -> Client-IP
+## NIP -> NAT-IP
+
+when RULE_INIT {
+  set DEBUG 0
+}
+when CLIENT_ACCEPTED {
+  if { [IP::addr [IP::client_addr] equals 10.0.1.0/24] } {
+    if { $::DEBUG > 1 } { log "aFlex has been fired" }
+    set CIP [IP::client_addr]
+    regsub "10.0.1." $CIP "10.0.2." NIP
+    snat $NIP
+    if { $::DEBUG > 1 } { log "SNAT from $CIP to $NIP" }  
+  } 
+}
